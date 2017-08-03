@@ -13,7 +13,7 @@ import (
 	"strconv"
 )
 
-func (u *Bot) sendCommand(method string, payload interface{}) ([]byte, error) {
+func (u *Bot) SendCommand(method string, payload interface{}) ([]byte, error) {
 	url := fmt.Sprintf("https://api.telegram.org/bot%s/%s",
 		u.Token, method)
 
@@ -124,7 +124,7 @@ func embedSendOptions(params map[string]string, options *SendOptions) {
 }
 
 func (u *Bot) getMe(token string) (User, error) {
-	meJSON, err := u.sendCommand("getMe", nil)
+	meJSON, err := u.SendCommand("getMe", nil)
 	if err != nil {
 		return User{}, err
 	}
@@ -152,7 +152,7 @@ func (u *Bot) getUpdates(token string, offset, timeout int64) (upd []Update, err
 		"offset":  strconv.FormatInt(offset, 10),
 		"timeout": strconv.FormatInt(timeout, 10),
 	}
-	updatesJSON, err := u.sendCommand("getUpdates", params)
+	updatesJSON, err := u.SendCommand("getUpdates", params)
 	if err != nil {
 		return
 	}
