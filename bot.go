@@ -159,6 +159,37 @@ func (b *Bot) ForwardMessage(recipient Recipient, message Message) error {
 	return nil
 }
 
+// DeleteMessage deletes a message from a chat.
+// The bot must have administrative privileges.
+func (b *Bot) DeleteMessage(message Message) error {
+	params := map[string]string{
+		"chat_id":    strconv.FormatInt(message.Chat.ID, 10),
+		"message_id": strconv.Itoa(message.ID),
+	}
+
+	responseJSON, err := b.SendCommand("deleteMessage", params)
+
+	if err != nil {
+		return err
+	}
+
+	var responseRecieved struct {
+		Ok          bool
+		Description string
+	}
+
+	err = json.Unmarshal(responseJSON, &responseRecieved)
+	if err != nil {
+		return err
+	}
+
+	if !responseRecieved.Ok {
+		return fmt.Errorf("telebot: %s", responseRecieved.Description)
+	}
+
+	return nil
+}
+
 // SendPhoto sends a photo object to recipient.
 //
 // On success, photo object would be aliased to its copy on
