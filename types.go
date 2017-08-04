@@ -249,8 +249,22 @@ type MessageEntity struct {
 
 // ChatMember object represents information about a single chat member.
 type ChatMember struct {
-	User   User   `json:"user"`
-	Status string `json:"status"`
+	User                  User   `json:"user"`
+	Status                string `json:"status"`
+	UntilDate             int    `json:"until_date"`
+	CanBeEdited           bool   `json:"can_be_edited"`
+	CanChangeInfo         bool   `json:"can_change_info"`
+	CanPostMessages       bool   `json:"can_post_messages"`
+	CanEditMessages       bool   `json:"can_edit_messages"`
+	CanDeleteMessages     bool   `json:"can_delete_messages"`
+	CanInviteUsers        bool   `json:"can_invite_users"`
+	CanRestrictMembers    bool   `json:"can_restrict_members"`
+	CanPinMessages        bool   `json:"can_pin_messages"`
+	CanPromoteMembers     bool   `json:"can_promote_members"`
+	CanSendMessages       bool   `json:"can_send_messages"`
+	CanSendMediaMessages  bool   `json:"can_send_media_messages"`
+	CanSendOtherMessages  bool   `json:"can_send_other_messages"`
+	CanAddWebPagePreviews bool   `json:"can_add_web_page_previews"`
 }
 
 // UserProfilePhotos object represent a user's profile pictures.
