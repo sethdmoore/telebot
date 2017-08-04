@@ -55,6 +55,8 @@ type Message struct {
 	// A group chat message belongs to, empty if personal.
 	Chat Chat `json:"chat"`
 
+	// XXX: 3.0 DEPRECATION
+	// works for now... but they warn that they will disable this
 	// For a service message, represents a user,
 	// that just got added to chat, this message came from.
 	//
@@ -62,6 +64,14 @@ type Message struct {
 	//
 	// UserJoined might be the Bot itself.
 	UserJoined User `json:"new_chat_member"`
+
+	// For a service message, represents a slice users
+	// that got added to chat since last update.
+	//
+	// Sender leads to User, capable of invite.
+	//
+	// UsersJoined might contain the Bot itself.
+	UsersJoined []User `json:"new_chat_members"`
 
 	// For a service message, represents a user,
 	// that just left chat, this message came from.
