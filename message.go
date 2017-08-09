@@ -172,6 +172,34 @@ func (m *Message) IsReply() bool {
 	return m.ReplyTo != nil
 }
 
+// IsCommand parses the first entity and tests for a command
+func (m *Message) IsCommand() bool {
+	if len(m.Entities) == 0 {
+		return false
+	}
+
+	e := m.Entities[0]
+
+	if e.Type == EntityCommand {
+		return true
+	}
+	return false
+}
+
+// ContainsCommand tests a message's entities for a command in any index.
+func (m *Message) ContainsCommand() bool {
+	if len(m.Entities) == 0 {
+		return false
+	}
+
+	for _, e := range m.Entities {
+		if e.Type == EntityCommand {
+			return true
+		}
+	}
+	return false
+}
+
 // IsPersonal returns true, if message is a personal message,
 // returns false if sent to group chat.
 func (m *Message) IsPersonal() bool {
